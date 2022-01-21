@@ -8,21 +8,14 @@
 package textproc
 
 import (
-	// "bufio"
 	"fmt"
-	// "io"
 	"log"
-	// "map"
 	"os"
 	"sort"
 	"strings"
 )
 
-// Changed topWords to TopWords (Need to make first letter of func name in capitals to export)
 func TopWords(path string, K int) []WordCount {
-	// Your code here.....
-	// file, err := os.Open("./passage")
-	// checkError(err)
 	var log = fmt.Println
 	result := []WordCount{}
 	data, err := os.ReadFile(path)
@@ -31,15 +24,13 @@ func TopWords(path string, K int) []WordCount {
 	words := strings.Fields(dataString)
 	wordsMap := make(map[string]int)
 	for _, word := range words {
-		// log("word->", word)
 		wordsMap[word] += 1
 	}
 
 	for key, value := range wordsMap {
 		result = append(result, WordCount{Word: key, Count: value})
 	}
-	// log(words)
-	// log(wordsMap)
+	
 	sortWordCounts(result)
 	log(result[:K])
 	return result[:K]
