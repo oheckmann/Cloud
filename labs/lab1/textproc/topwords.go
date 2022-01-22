@@ -10,30 +10,30 @@ package textproc
 import (
 	"fmt"
 	"log"
-	"os"
-	"sort"
-	"strings"
+	"os" //os package for opening a file
+	"sort" //sort package to sort the strings
+	"strings" //string package for string processing
 )
 
 func TopWords(path string, K int) []WordCount {
 	var log = fmt.Println
 	result := []WordCount{}
-	data, err := os.ReadFile(path)
+	data, err := os.ReadFile(path) //reads the file
 	checkError(err)
 	dataString := string(data)
 	words := strings.Fields(dataString)
 	wordsMap := make(map[string]int)
-	for _, word := range words {
+	for _, word := range words { //uses map for counting word occurrences in O(n) time
 		wordsMap[word] += 1
 	}
 
 	for key, value := range wordsMap {
-		result = append(result, WordCount{Word: key, Count: value})
+		result = append(result, WordCount{Word: key, Count: value}) //loops through the list to count words output in a certain format
 	}
 	
-	sortWordCounts(result)
+	sortWordCounts(result) //sorts the result 
 	log(result[:K])
-	return result[:K]
+	return result[:K] // returns the result
 }
 
 //--------------- DO NOT MODIFY----------------!
