@@ -16,11 +16,11 @@ import (
 )
 
 func TopWords(path string, K int) []WordCount {
-	var log = fmt.Println
+	//var log = fmt.Println
 	var k int32
 	result := []WordCount{}
 	data, err := os.ReadFile(path) //reads the file
-	checkError(err)
+	checkError(err) //Error handling
 	dataString := string(data)
 	words := strings.Fields(dataString)
 	wordsMap := make(map[string]int)
@@ -31,10 +31,19 @@ func TopWords(path string, K int) []WordCount {
 	for key, value := range wordsMap {
 		result = append(result, WordCount{Word: key, Count: value}) //loops through the list to count words output in a certain format
 	}
-	fmt.Println(k)
+	//fmt.Println(k) //For testing
 	sortWordCounts(result) //sorts the result 
-	log(result[:K])
+	//log(result[:K]) for testing
+	if k <= 0 {
+		nullslice := []int{}
+		return nullslice 
+	}
+	else if k > len(wordsMap) {
+		return result
+	}
+	else {
 	return result[:K] // returns the result
+	}
 }
 
 //--------------- DO NOT MODIFY----------------!
