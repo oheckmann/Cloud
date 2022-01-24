@@ -33,9 +33,9 @@ func TopWords(path string, K int) []WordCount {
 	sortWordCounts(result) //sorts the result
 	//log(result[:K]) for testing
 	if K <= 0 {
-		return []WordCount{}
+		return []WordCount{}, fmt.Errorf("K is smaller than, or equal to zero, something is wrong",K)
 	} else if K > len(wordsMap) {
-		return result
+		return result, fmt.Errorf("K is larger than the number of words in the file, something is wrong",K)
 	} else {
 		return result[:K] // returns the result
 	}
